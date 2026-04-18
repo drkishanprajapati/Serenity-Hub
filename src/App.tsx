@@ -14,7 +14,7 @@ import { auth, db, googleProvider, handleFirestoreError, OperationType, User } f
 import { signInWithPopup, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
 import { collection, doc, setDoc, updateDoc, deleteDoc, onSnapshot, query, where, orderBy, Timestamp, getDoc } from "firebase/firestore";
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
 
 type Phase = "INHALE" | "HOLD_IN" | "EXHALE" | "HOLD_OUT";
 type Tool = "Breathe" | "5-4-3-2-1" | "Reframing" | "Activity" | "Worry" | "Compassion";
