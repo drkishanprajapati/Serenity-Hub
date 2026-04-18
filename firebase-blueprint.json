@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique user ID" },
+        "displayName": { "type": "string", "description": "User visible name" },
+        "email": { "type": "string", "format": "email", "description": "User email" },
+        "photoURL": { "type": "string", "description": "User profile photo URL" },
+        "bio": { "type": "string", "description": "User brief biography" },
+        "goal": { "type": "string", "description": "User wellness goal" },
+        "wellnessFocus": { "type": "string", "enum": ["Stress", "Anxiety", "Sleep", "Mindset", "Physical"], "description": "Primary wellness focus" },
+        "commitment": { "type": "string", "enum": ["5 mins/day", "15 mins/day", "30+ mins/day"], "description": "Daily commitment level" },
+        "journalSettings": {
+          "type": "object",
+          "properties": {
+            "reminderEnabled": { "type": "boolean" },
+            "reminderTime": { "type": "string" },
+            "reminderFrequency": { "type": "string" }
+          }
+        }
+      },
+      "required": ["uid", "email"]
+    },
+    "JournalEntry": {
+      "title": "Journal Entry",
+      "description": "A single mood journal entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "uid": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "mood": { "type": "string" },
+        "content": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "mood", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Store user profiles and settings"
+    },
+    "/users/{userId}/entries/{entryId}": {
+      "schema": "JournalEntry",
+      "description": "Store user journal entries"
+    }
+  }
+}
